@@ -124,12 +124,12 @@
 // | TAB    |  1  |  2  |  3  |  4  |  5  |      |  6   |  7  |  8  |  9  |   0   |- (/)|
 // | TOGGLE |LCTRL|LALT |LGUI |LSHFT|     |      |  ,   |  4  |  5  |  6  |   :   | + (-)|
 // |        |     |     |     |     |     |      |  .   |  1  |  2  |  3  | /? (7)| "(NON_US_HASH or BSLH)|
-//               | FUNC | NAV SPACE | ENT |      | = (()| SYM 0  | NAV2 0 |
+//               | FUNC | NAV SPACE | ENT |      | = (()| SYM 0  | NAV2 - |
                         bindings = <
    &kp TAB     &kp N1    &kp N2    &kp N3    &kp N4         &kp N5        &kp N6     &kp N7        &kp N8      &kp N9  &kp N0       &kp FSLH
    &tog NUMBER &kp LCTRL &kp LALT  &kp LGUI  &kp LSHIFT     &none         &kp COMMA  &kp N4        &kp N5      &kp N6  &kp LS(DOT)  &kp MINUS
    &none       &kp LG(Z) &kp LG(X) &kp LG(C) &kp LG(D)      &kp LG(V)     &kp DOT    &kp N1        &kp N2      &kp N3  &se_slsh     &kp LS(N2)
-                                   &mo FUNC  &lt NAV SPACE  &kp RET       &kp RPAR   &lt SYMBOL N0 &lt NAV2 N0 
+                                   &mo FUNC  &lt NAV SPACE  &kp RET       &kp RPAR   &lt SYMBOL N0 &lt NAV2 FSLH 
                         >;
                 };
 
