@@ -16,6 +16,26 @@
 #define FUNC     4
 #define SYMBOL   5 
 
+// Home row mods macro
+#define HRML1(k1,k2) &l_ht LC(LGUI) k1   &l_ht LS(LALT) k2
+#define HRML2(k1,k2,k3,k4,k5,k6) &l_ht LCTRL k1   &l_ht LCTRL k2   &l_ht LALT k3   &l_ht LGUI k4   &l_ht LSHIFT k5   &l_ht LC(LS(LALT)) k6
+#define HRML3(k1,k2,k3,k4) &l_ht LA(LCTRL) k1   &l_ht LG(LALT) k2   &l_ht LS(LGUI) k3   &l_ht LC(LS(LA(LGUI))) k4
+
+#define HRMR1(k1,k2) &r_ht RS(RALT) k1   &r_ht RC(RGUI) k2
+#define HRMR2(k1,k2,k3,k4,k5,k6) &r_ht RC(RS(RALT)) k1   &r_ht RSHIFT k2   &r_ht RGUI k3   &r_ht RALT k4   &r_ht RCTRL k5   &r_ht RCTRL k6
+#define HRMR3(k1,k2,k3,k4) &r_ht RC(RS(RA(RGUI))) k1   &r_ht RS(RGUI) k2   &r_ht RG(RALT) k3   &r_ht RA(RCTRL) k4
+
+// Short commands macro
+#define SHRT1(k1,k2,k3) &kp LG(k1)   &kp LG(k2)   &kp LA(LG(k3))
+#define SHRT2(k1,k2,k3,k4,k5) &l_ht LCTRL LG(k1)   &l_ht LALT LG(k2)   &l_ht LGUI LG(k3)   &l_ht LSHIFT LG(k4)   &kp LG(k5)
+#define SHRT3(k1,k2,k3,k4,k5) &kp LG(k1)   &kp LG(k2)   &kp LG(k3)   &kp LG(k4)   &kp LG(k5)
+
+// Special character macro
+#define _BSLH LS(RA(N7))
+#define _LT NON_US_BSLH
+#define _GT LS(NON_US_BSLH)
+#define _ASTERIX LS(NON_US_HASH)
+
 / {
     chosen {
         zmk,matrix_transform = &default_transform;
@@ -111,9 +131,9 @@
 // |     \     |  Z      | X      |  C     |  D      |  V  |   |  K  |  H       |  ,      |  .      | /? (7)   | ' "(NON_US_HASH or BSLH)|
 //                         | FUNC | NAV SPACE | MUMBER ENT |   | DEL | SYMBOL BSP | NAV2 BSP |
                         bindings = <
-   &kp TAB          &kp Q           &l_ht LC(LGUI) W    &l_ht LS(LALT) F    &kp P               &kp B                           &kp J                       &kp L               &r_ht RS(RALT) U        &r_ht RC(RGUI) Y        &kp SEMI        &kp LBKT
-   &l_ht LCTRL ESC  &l_ht LCTRL A   &l_ht LALT R        &l_ht LGUI S        &l_ht LSHIFT T      &l_ht LC(LS(LALT)) G            &r_ht RC(RS(RALT)) M        &r_ht RSHIFT N      &r_ht RGUI E            &r_ht RALT I            &r_ht RCTRL O   &r_ht RCTRL SQT
-   &kp LS(RA(N7))   &kp Z           &l_ht LA(LCTRL) X   &l_ht LG(LALT) C    &l_ht LS(LGUI) D    &l_ht LC(LS(LA(LGUI))) V        &r_ht RC(RS(RA(RGUI))) K    &r_ht RS(RGUI) H    &r_ht RG(RALT) COMMA    &r_ht RA(RCTRL) DOT     &se_slsh        &se_quot
+   &kp TAB          &kp Q           HRML1( W,           F)                  &kp P               &kp B                           &kp J                       &kp L               HRMR1( U,               Y)                      &kp SEMI        &kp LBKT
+   HRML2( ESC,      A,              R,                  S,                  T,                  G)                              HRMR2( M,                   N,                  E,                      I,                      O,              SQT) 
+   &kp _BSLH   &kp Z           HRML3( X,           C,                  D,                  V)                              HRMR3( K,                   H,                  COMMA,                  DOT)                    &se_slsh        &se_quot
                                                         &mo FUNC            &lt NAV SPACE       &lt NUMBER RET                  &kp DEL                     &lt SYMBOL BSPC     &lt NAV2 BSPC    
                         >;
                 };
@@ -141,9 +161,9 @@
 // |     |UNDO | CUT |COPY |LG-D |PASTE|      |  << | vol- | vol+ | >>  |   :   | ' "(NON_US_HASH or BSLH)|
 //                   |     |     |     |      |= ())|_ (/) | - (/)|
                         bindings = <
-   &none &kp EXCL          &kp RA(N2)       &kp LG(F)           &kp LG(P)          &kp LA(LG(B))   &kp HOME   &kp PG_DN     &kp PG_UP     &kp END     &kp EQUAL   &kp FSLH
-   &none &l_ht LCTRL LG(A) &l_ht LALT LG(R) &l_ht LGUI LG(S)    &l_ht LSHIFT LG(T) &kp LG(G)       &kp LEFT   &kp DOWN      &kp UP        &kp RIGHT   &se_scln    &kp MINUS
-   &none &kp LG(Z)         &kp LG(X)        &kp LG(C)           &kp LG(D)          &kp LG(V)       &kp C_PREV &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT  &kp LS(DOT) &kp LS(N2)
+   &none &kp EXCL          &kp RA(N2)       SHRT1( F,           P,                 B)              &kp HOME   &kp PG_DN     &kp PG_UP     &kp END     &kp EQUAL   &kp FSLH
+   &none SHRT2( A,         R,               S,                  T,                 G)              &kp LEFT   &kp DOWN      &kp UP        &kp RIGHT   &se_scln    &kp MINUS
+   &none SHRT3( Z,         X,               C,                  D,                 V)              &kp C_PREV &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT  &kp LS(DOT) &kp LS(N2)
                                             &none               &none              &none           &kp RPAR   &kp LS(FSLH)  &kp FSLH
                         >;
                 };
@@ -188,7 +208,7 @@
                         bindings = <
    &kp RA(RBKT)     &kp EXCL  &kp RA(N2) &se_lbrc         &se_rbrc             &kp PRCNT                &none  &none       &none     &none     &none      &none
    &kp LCTRL        &kp CARET &kp RA(N4) &kp LS(N8)       &kp LS(N9)           &kp HASH                 &none  &kp RSHIFT  &kp RGUI  &kp RALT  &kp RCTRL  &kp RCTRL
-   &kp LS(RA(N7))   &se_pipe  &kp RBRC   &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &kp LS(NON_US_HASH)      &none  &none       &none     &none     &none      &none
+   &kp _BSLH   &se_pipe  &kp RBRC   &kp _LT               &kp _GT              &kp _ASTERIX             &none  &none       &none     &none     &none      &none
                                          &kp SPACE        &kp SPACE            &kp RET                  &none  &none       &none
                         >;
                 };
