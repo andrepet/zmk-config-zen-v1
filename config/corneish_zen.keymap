@@ -125,16 +125,20 @@
 
                 default_layer {
                         label = "COLEMAK";
-// -----------------------------------------------------------------------------------------
-// | TAB       |  Q      | W      |  F     |  P      |  B  |   |  J  |  L       |  U      |  Y      |  Ö(;)    | Å([)       |
-// | LCTRL ESC | LCTRL A | LALT R | LGUI S | LSHFT T |  G  |   |  M  | RSHFT  N | RGUI  E | RALT  I | RCTRL O  | Ä(')       |
-// |     \     |  Z      | X      |  C     |  D      |  V  |   |  K  |  H       |  ,      |  .      | /? (7)   | ' "(NON_US_HASH or BSLH)|
-//                         | FUNC | NAV SPACE | MUMBER ENT |   | DEL | SYMBOL BSP | NAV2 BSP |
                         bindings = <
-   &kp TAB          &kp Q           HRML1( W,           F)                  &kp P               &kp B                           &kp J                       &kp L               HRMR1( U,               Y)                      &kp SEMI        &kp LBKT
-   HRML2( ESC,      A,              R,                  S,                  T,                  G)                              HRMR2( M,                   N,                  E,                      I,                      O,              SQT) 
-   &kp _BSLH   &kp Z           HRML3( X,           C,                  D,                  V)                              HRMR3( K,                   H,                  COMMA,                  DOT)                    &se_slsh        &se_quot
-                                                        &mo FUNC            &lt NAV SPACE       &lt NUMBER RET                  &kp DEL                     &lt SYMBOL BSPC     &lt NAV2 BSPC    
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | TAB        | Q          | W mod      | F mod      | P          | B          |     | J          | L          | U mod      | Y mod      | Ö          | Å          |
+     &kp TAB      &kp Q        HRML1(W,        F)        &kp P        &kp B              &kp J        &kp L        HRMR1(U,         Y)       &kp SEMI     &kp LBKT
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | ESC mod    | A mod      | R mod      | S mod      | T mod      | G mod      |     | M  mod     | N mod      | E mod      | I          | O          | Ä          |
+     HRML2(ESC,       A,           R,           S,           T,           G)             HRMR2(M,         N,           E,           I,           O,          SQT) 
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | \          | Z          | X mod      | C mod      | D mod      | V mod      |     | K mod      | H mod      | , mod      | . mod      | / ?        | ' "        |
+     &kp _BSLH    &kp Z        HRML3(X,         C,           D,           V)             HRMR3(K,         H,         COMMA,        DOT)      &se_slsh     &se_quot
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+//                      | FUNC             | SPACE NAV        | ENTER NUMBER     |     | DEL              | BSP SYMBOL       | BSP NAV2         |
+                          &mo FUNC           &lt NAV SPACE      &lt NUMBER RET           &kp DEL            &lt SYMBOL BSPC    &lt NAV2 BSPC
+//                      ----------------------------------------------------------     ----------------------------------------------------------
                         >;
                 };
 
