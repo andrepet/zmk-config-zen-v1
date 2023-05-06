@@ -1,4 +1,4 @@
-# Corne-ish Zen Custom Configuration
+# Corne-ish Zen v1 Custom Configuration
 
 ![Corne-ish Zen Logo](img/Zen_v1_logo.png)
 
