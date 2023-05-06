@@ -29,7 +29,7 @@
 #define _OE     LBKT                /* Å */
 #define _AE     SQT                 /* Ä */
 #define _OO     SEMI                /* Ö */
-#define _AMPER  RA(N2)              /* & */
+#define _AMPER  CARET               /* & */
 #define _BSLH   LS(RA(N7))          /* \ */
 #define _LT     NON_US_BSLH         /* < */
 #define _GT     LS(NON_US_BSLH)     /* > */
