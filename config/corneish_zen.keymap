@@ -1,20 +1,15 @@
-/*
-*
-* Copyright (c) 2021 Darryl deHaan
-* SPDX-License-Identifier: MIT
-*
-*/
-
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/mouse.h>
 
-#define COLEMAK  0
-#define NUMBER   1
-#define NAV      2
-#define NAV2     3
-#define FUNC     4
-#define SYMBOL   5 
+#define COLEMAK 0
+#define NUMBER  1
+#define NAV     2
+#define NAV2    3
+#define FUNC    4
+#define SYMBOL  5 
+#define MOUSE   6 
 
 // Home row mods macro
 #define HRML1(k1,k2) &l_ht LC(LGUI) k1   &l_ht LS(LALT) k2
@@ -30,11 +25,74 @@
 #define SHRT2(k1,k2,k3,k4,k5) &l_ht LCTRL LG(k1)   &l_ht LALT LG(k2)   &l_ht LGUI LG(k3)   &l_ht LSHIFT LG(k4)   &kp LG(k5)
 #define SHRT3(k1,k2,k3,k4,k5) &kp LG(k1)   &kp LG(k2)   &kp LG(k3)   &kp LG(k4)   &kp LG(k5)
 
-// Special character macro
-#define _BSLH LS(RA(N7))
-#define _LT NON_US_BSLH
-#define _GT LS(NON_US_BSLH)
-#define _ASTERIX LS(NON_US_HASH)
+// Special swedish character macro for macOS (swedish pro mac iso)
+#define _OE     LBKT                /* Å */
+#define _AE     SQT                 /* Ä */
+#define _OO     SEMI                /* Ö */
+#define _AMPER  RA(N2)              /* & */
+#define _BSLH   LS(RA(N7))          /* \ */
+#define _LT     NON_US_BSLH         /* < */
+#define _GT     LS(NON_US_BSLH)     /* > */
+#define _ASTRX  LS(NON_US_HASH)     /* * */
+#define _TILDE  RA(RBKT)            /* ~ */
+#define _LPAR   LS(N8)              /* ( */
+#define _RPAR   LS(N9)              /* ) */
+#define _TOP    RBRC                /* ^ */
+#define _EQ     RPAR                /* = */
+#define _UNDER  LS(FSLH)            /* _ */
+#define _MINUS  FSLH                /* - */
+#define _PLUS   MINUS               /* + */
+#define _SQUOT  NON_US_HASH         /* ' */
+#define _DQUOT  LS(N2)              /* " */
+#define _SEMIC  LS(COMMA)           /* ; */
+#define _COLON  LS(DOT)             /* : */
+#define _FSLH   LS(N7)              /* / */
+#define _QMARK  LS(MINUS)           /* ? */
+#define _LBKT   RA(N8)              /* [ */
+#define _LBRC   LS(RA(N8))          /* { */
+#define _RBKT   RA(N9)              /* ] */
+#define _RBRC   LS(RA(N9))          /* } */
+#define _PIPE   RA(N7)              /* | */
+#define _AT     RA(N2)              /* @ */
+#define _DOLAR  RA(N4)              /* $ */
+#define _EURO   LS(N4)              /* € */
+#define _POUND  RA(N3)              /* £ */
+#define _CRNCY  LS(RA(N3))          /* ¥ */
+#define _MICRO  RA(Y)               /* µ */
+#define _PARGH  GRAVE               /* § */
+#define _HALF   LS(GRAVE)           /* ° */
+#define _ACUTE  EQUAL               /* ´ */
+#define _BTICK  LS(EQUAL)           /* ` */
+
+// Define experimental mouse movement settings
+#define U_MOUSE_MOVE_MAX 1400                   /* <--- New max speed setting (default: 600) */
+//#undef MOVE_UP
+//#undef MOVE_DOWN
+//#undef MOVE_LEFT
+//#undef MOVE_RIGHT
+#define _MM_U MOVE_VERT(-U_MOUSE_MOVE_MAX)
+#define _MM_D MOVE_VERT(U_MOUSE_MOVE_MAX)
+#define _MM_L MOVE_HOR(-U_MOUSE_MOVE_MAX)
+#define _MM_R MOVE_HOR(U_MOUSE_MOVE_MAX)
+
+&mmv {
+    time-to-max-speed-ms = <400>;               /* <--- How long time until max speed is reached (default: 500) */
+};
+
+// Define experimental mouse scroll settings
+#define U_MOUSE_SCROLL_MAX 75                   /* <--- New max speed setting (default: 10) */
+//#undef SCROLL_UP
+//#undef SCROLL_DOWN
+//#undef SCROLL_LEFT
+//#undef SCROLL_RIGHT
+#define _MS_U SCROLL_VERT(U_MOUSE_SCROLL_MAX)
+#define _MS_D SCROLL_VERT(-U_MOUSE_SCROLL_MAX)
+#define _MS_L SCROLL_HOR(-U_MOUSE_SCROLL_MAX)
+#define _MS_R SCROLL_HOR(U_MOUSE_SCROLL_MAX)
+
+&mwh {
+    time-to-max-speed-ms = <500>;               /* <--- How long time until max speed is reached */
+};
 
 / {
     chosen {
@@ -44,177 +102,251 @@
 };
 
 / {
-        behaviors {
-            r_ht: right_hold_tap {
-                compatible = "zmk,behavior-hold-tap";
-                label = "RIGHT_POSITIONAL_HOLD_TAP";
-                #binding-cells = <2>;
-                tapping-term-ms = <175>;
-                quick_tap_ms = <200>;
-                flavor = "tap-preferred";
-                bindings = <&kp>, <&kp>;
-                hold-trigger-key-positions = <
-                     0  1  2  3  4  5 
-                    12 13 14 15 16 17
-                    24 25 26 27 28 29
-                    36 37 38
-                >;
-            };
-            l_ht: left_hold_tap {
-                compatible = "zmk,behavior-hold-tap";
-                label = "LEFT_POSITIONAL_HOLD_TAP";
-                #binding-cells = <2>;
-                tapping-term-ms = <175>;
-                quick_tap_ms = <200>;
-                flavor = "tap-preferred";
-                bindings = <&kp>, <&kp>;
-                hold-trigger-key-positions = <
-                     6  7  8  9 10 11
-                    18 19 20 21 22 23
-                    30 31 32 33 34 35
-                38  39 40 41
-                >;
-            };
-
-            se_scln: se_semi_colon {            
-                compatible = "zmk,behavior-mod-morph";            
-                label = "SWEDISH_SEMICOLON";
-                #binding-cells = <0>;
-                bindings = <&kp LS(COMMA)>, <&kp LS(DOT)>;
-                mods = <(MOD_LSFT|MOD_RSFT)>;
-            };
-            se_quot: se_quote {            
-                compatible = "zmk,behavior-mod-morph";            
-                label = "SWEDISH_QUOTE";
-                #binding-cells = <0>;
-                bindings = <&kp NON_US_HASH>, <&kp LS(N2)>;
-                mods = <(MOD_LSFT|MOD_RSFT)>;
-            };
-            se_slsh: se_slash_question {            
-                compatible = "zmk,behavior-mod-morph";            
-                label = "SWEDISH_SLASH_QUESTION";
-                #binding-cells = <0>;
-                bindings = <&kp LS(N7)>, <&kp LS(MINUS)>;
-                mods = <(MOD_LSFT|MOD_RSFT)>;
-            };
-            se_lbrc: se_left_bracket {            
-                compatible = "zmk,behavior-mod-morph";            
-                label = "SWEDISH_LEFT_BRACKET";
-                #binding-cells = <0>;
-                bindings = <&kp RA(N8)>, <&kp LS(RA(N8))>;
-                mods = <(MOD_LSFT|MOD_RSFT)>;
-            };
-            se_rbrc: se_right_bracket {            
-                compatible = "zmk,behavior-mod-morph";            
-                label = "SWEDISH_RIGHT_BRACKET";
-                #binding-cells = <0>;
-                bindings = <&kp RA(N9)>, <&kp LS(RA(N9))>;
-                mods = <(MOD_LSFT|MOD_RSFT)>;
-            };
-            se_pipe: se_pipe {            
-                compatible = "zmk,behavior-mod-morph";            
-                label = "SWEDISH_PIPE";
-                #binding-cells = <0>;
-                bindings = <&kp RA(N7)>, <&kp LS(RA(N7))>;
-                mods = <(MOD_LSFT|MOD_RSFT)>;
-            };
+    behaviors {
+        r_ht: right_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "RIGHT_POSITIONAL_HOLD_TAP";
+            #binding-cells = <2>;
+            tapping-term-ms = <175>;
+            quick_tap_ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <
+                 0  1  2  3  4  5 
+                12 13 14 15 16 17
+                24 25 26 27 28 29
+                36 37 38
+            >;
         };
+        l_ht: left_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LEFT_POSITIONAL_HOLD_TAP";
+            #binding-cells = <2>;
+            tapping-term-ms = <175>;
+            quick_tap_ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <
+                 6  7  8  9 10 11
+                18 19 20 21 22 23
+                30 31 32 33 34 35
+             38 39 40 41
+            >;
+        };
+        se_scln: semi_colon_shift_colon {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_SEMICOLON";
+            #binding-cells = <0>;
+            bindings = <&kp _SEMIC>, <&kp _COLON>; /* ; : */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        se_quot: single_quote_shift_double_quote {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_QUOTE";
+            #binding-cells = <0>;
+            bindings = <&kp _SQUOT>, <&kp _DQUOT>; /* ' " */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        se_slsh: slash_shift_question {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_SLASH_QUESTION";
+            #binding-cells = <0>;
+            bindings = <&kp _FSLH>, <&kp _QMARK>; /* / ? */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        se_lbrc: se_left_bracket {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_LEFT_BRACKET";
+            #binding-cells = <0>;
+            bindings = <&kp _LBKT>, <&kp _LBRC>; /* [ { */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        se_rbrc: se_right_bracket {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_RIGHT_BRACKET";
+            #binding-cells = <0>;
+            bindings = <&kp _RBKT>, <&kp _RBRC>; /* ] } */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        se_pipe: se_pipe {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_PIPE";
+            #binding-cells = <0>;
+            bindings = <&kp _PIPE>, <&kp _BSLH>; /* | \ */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        at_pnd: at_shift_pound {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_AT_SHIFT_POUND";
+            #binding-cells = <0>;
+            bindings = <&kp _AT>, <&kp _POUND>; /* @ £ */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        dlr_eur: dollar_shift_eur {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_DOLLAR_SHIFT_EURO";
+            #binding-cells = <0>;
+            bindings = <&kp _DOLAR>, <&kp _EURO>; /* $ € */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        cur_mcr: currency_shift_micro {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_CURRENCY_SCARAB_SHIFT_MICRO";
+            #binding-cells = <0>;
+            bindings = <&kp _CRNCY>, <&kp _MICRO>; /* ¥ µ */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        par_hlf: paragraph_shift_half_character {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_PARAGRAPH_SHIFT_HALF_CHARACTER";
+            #binding-cells = <0>;
+            bindings = <&kp _PARGH>, <&kp _HALF>; /* § ° */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        btik_tld: back_tick_shift_tilde {            
+            compatible = "zmk,behavior-mod-morph";            
+            label = "SWEDISH_BACK_TICK_SHIFT_TILDE";
+            #binding-cells = <0>;
+            bindings = <&kp _BTICK>, <&kp _TILDE>; /* ` ~ */
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+    };
 
-        keymap {
-                compatible = "zmk,keymap";
+    keymap {
+        compatible = "zmk,keymap";
 
-                default_layer {
-                        label = "COLEMAK";
-                        bindings = <
+        colemak_layer {
+            label = "COLEMAK";
+            bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // | TAB        | Q          | W mod      | F mod      | P          | B          |     | J          | L          | U mod      | Y mod      | Ö          | Å          |
-     &kp TAB      &kp Q        HRML1(W,        F)        &kp P        &kp B              &kp J        &kp L        HRMR1(U,         Y)       &kp SEMI     &kp LBKT
+     &kp TAB      &kp Q        HRML1(W,         F)       &kp P        &kp B              &kp J        &kp L        HRMR1(U,         Y)       &kp _OO      &kp _OE    
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// | ESC mod    | A mod      | R mod      | S mod      | T mod      | G mod      |     | M  mod     | N mod      | E mod      | I          | O          | Ä          |
-     HRML2(ESC,       A,           R,           S,           T,           G)             HRMR2(M,         N,           E,           I,           O,          SQT) 
+// | ESC mod    | A  mod     | R mod      | S mod      | T mod      | G mod      |     | M  mod     | N mod      | E mod      | I          | O          | Ä          |
+     HRML2(ESC,       A,           R,           S,           T,           G)             HRMR2(M,         N,           E,           I,           O,           _AE)
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // | \          | Z          | X mod      | C mod      | D mod      | V mod      |     | K mod      | H mod      | , mod      | . mod      | / ?        | ' "        |
-     &kp _BSLH    &kp Z        HRML3(X,         C,           D,           V)             HRMR3(K,         H,         COMMA,        DOT)      &se_slsh     &se_quot
+     &kp _BSLH    &kp Z        HRML3(X,         C,           D,           V)             HRMR3(K,         H,        COMMA,        DOT)       &se_slsh     &se_quot
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-//                      | FUNC             | SPACE NAV        | ENTER NUMBER     |     | DEL              | BSP SYMBOL       | BSP NAV2         |
-                          &mo FUNC           &lt NAV SPACE      &lt NUMBER RET           &kp DEL            &lt SYMBOL BSPC    &lt NAV2 BSPC
+//                      | FUNC             | SPACE NAV        | ENTER NUMBER     |     | DEL MOUSE        | BSP SYMBOL       | BSP NAV2         |
+                          &mo FUNC           &lt NAV SPACE      &lt NUMBER RET           &lt MOUSE DEL      &lt SYMBOL BSPC    &lt NAV2 BSPC
 //                      ----------------------------------------------------------     ----------------------------------------------------------
-                        >;
-                };
-
-                number_layer {
-                        label = "NUMBER";
-// -----------------------------------------------------------------------------------------
-// | TAB    |  1  |  2  |  3  |  4  |  5  |      |  6   |  7  |  8  |  9  |   0   |- (/)|
-// | TOGGLE |LCTRL|LALT |LGUI |LSHFT|     |      |  ,   |  4  |  5  |  6  |   :   | + (-)|
-// |        |     |     |     |     |     |      |  .   |  1  |  2  |  3  | /? (7)| "(NON_US_HASH or BSLH)|
-//               | FUNC | NAV SPACE | ENT |      | = (()| SYM 0  | NAV2 - |
-                        bindings = <
-   &kp TAB     &kp N1    &kp N2    &kp N3    &kp N4         &kp N5        &kp N6     &kp N7        &kp N8      &kp N9  &kp N0       &kp FSLH
-   &tog NUMBER &kp LCTRL &kp LALT  &kp LGUI  &kp LSHIFT     &none         &kp COMMA  &kp N4        &kp N5      &kp N6  &kp LS(DOT)  &kp MINUS
-   &none       &kp LG(Z) &kp LG(X) &kp LG(C) &kp LG(D)      &kp LG(V)     &kp DOT    &kp N1        &kp N2      &kp N3  &se_slsh     &kp LS(N2)
-                                   &mo FUNC  &lt NAV SPACE  &kp RET       &kp RPAR   &lt SYMBOL N0 &lt NAV2 FSLH 
-                        >;
-                };
-
-                navigation_layer {
-                        label = "NAV";
-// -----------------------------------------------------------------------------------------
-// |     |  !  |  @  |     |     |     |      | HOME| PDWN | PUP  | END |´ (=)  |- (/)|
-// |     |LCTRL|LALT |LGUI |LSHFT|     |      | LFT | DWN  |  UP  | RGT |  ; :  |+ (-)|
-// |     |UNDO | CUT |COPY |LG-D |PASTE|      |  << | vol- | vol+ | >>  |   :   | ' "(NON_US_HASH or BSLH)|
-//                   |     |     |     |      |= ())|_ (/) | - (/)|
-                        bindings = <
-   &none &kp EXCL          &kp RA(N2)       SHRT1( F,           P,                 B)              &kp HOME   &kp PG_DN     &kp PG_UP     &kp END     &kp EQUAL   &kp FSLH
-   &none SHRT2( A,         R,               S,                  T,                 G)              &kp LEFT   &kp DOWN      &kp UP        &kp RIGHT   &se_scln    &kp MINUS
-   &none SHRT3( Z,         X,               C,                  D,                 V)              &kp C_PREV &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT  &kp LS(DOT) &kp LS(N2)
-                                            &none               &none              &none           &kp RPAR   &kp LS(FSLH)  &kp FSLH
-                        >;
-                };
-
-                navigation_2_layer {
-                        label = "NAV2";
-// -----------------------------------------------------------------------------------------
-// |     |     |     |     |     |     |      | HOME| PDWN | PUP  | END |´ (=)  |- (/)|
-// |     |LCTRL|LALT |LGUI |LSHFT|     |      | LFT | DWN  |  UP  | RGT |  ; :  |+ (-)|
-// |     |     |     |     |     |     |      |  << | vol- | vol+ | >>  | /? (7)| ' "(NON_US_HASH or BSLH)|
-//         | CAPS | SPACE | TOG NUMBER |      |     |      |      |
-                        bindings = <
-   &none &none     &none     &none        &none       &none         &kp HOME   &kp PG_DN     &kp PG_UP     &kp END     &kp EQUAL  &kp FSLH
-   &none &kp LCTRL &kp LALT  &kp LGUI     &kp LSHIFT  &none         &kp LEFT   &kp DOWN      &kp UP        &kp RIGHT   &se_scln   &kp MINUS
-   &none &none     &none     &none        &none       &none         &kp C_PREV &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT  &se_slsh   &kp LS(N2)
-                             &kp CAPS     &none       &tog NUMBER   &none      &none         &none
-                        >;
-                };
-
-                function_layer {
-                        label = "FUNC";
-// -----------------------------------------------------------------------------------------
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |      | F12 | F7  | F8  | F9  |    |reset|
-// |      |LCTRL|LALT |LGUI |LSHFT|     |      | F11 | F4  | F5  | F6  |    |     |
-// |      |     |     |     | CAPS|     |      | F10 | F1  | F2  | F3  |    |     |
-//                    |     |     |     |      | DEL | BSPC| CAPS|
-                        bindings = <
-   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &kp F12  &kp F7    &kp F8  &kp F9  &none  &sys_reset
-   &none      &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT   &none            &kp F11  &kp F4    &kp F5  &kp F6  &none  &none 
-   &none      &none        &none        &none        &kp CAPS     &none            &kp F10  &kp F1    &kp F2  &kp F3  &none  &none 
-                                        &none        &none        &none            &kp DEL  &kp BSPC  &kp CAPS
-                        >;
-                };
-
-                symbol_layer {
-                        label = "SYMBOL";
-// -----------------------------------------------------------------------------------------
-// | ~    |  !  |  @  | [ { | ] } |  %  |      |    |     |     |    |     |    |
-// | CTRL |  &  |  $  |  (  |  )  |  #  |      |    |RSHFT|RGUI |RALT|RCTRL|    |
-// |  \   | "|" |  ^  |  <  |  >  |  *  |      |    |     |     |    |     |    |
-//                    | SPC |SPC  | ENT |      |    |     |     |    
-                        bindings = <
-   &kp RA(RBKT)     &kp EXCL  &kp RA(N2) &se_lbrc         &se_rbrc             &kp PRCNT                &none  &none       &none     &none     &none      &none
-   &kp LCTRL        &kp CARET &kp RA(N4) &kp LS(N8)       &kp LS(N9)           &kp HASH                 &none  &kp RSHIFT  &kp RGUI  &kp RALT  &kp RCTRL  &kp RCTRL
-   &kp _BSLH   &se_pipe  &kp RBRC   &kp _LT               &kp _GT              &kp _ASTERIX             &none  &none       &none     &none     &none      &none
-                                         &kp SPACE        &kp SPACE            &kp RET                  &none  &none       &none
-                        >;
-                };
+            >;
         };
+
+        number_layer {
+            label = "NUMBER";
+            bindings = <
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | TAB        | 1          | 2          | 3          | 4          | 5          |     | 6          | 7          | 8          | 9          | 0          | - _        |
+     &kp TAB      &kp N1       &kp N2       &kp N3       &kp N4       &kp N5             &kp N6       &kp N7       &kp N8       &kp N9       &kp N0       &kp _MINUS
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | TOGGLE     | LCTRL      | LALT       | LGUI       | LSHFT      |            |     | ,          | 4          | 5          | 6          | ; :        | + ?        |
+     &tog NUMBER  &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT   &none              &kp COMMA    &kp N4       &kp N5       &kp N6       &se_scln     &kp _PLUS
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            | UNDO       | CUT        | COPY       | CTRL + D   | PASTE      |     | .          | 1          | 2          | 3          | :          | "          |
+     &none        SHRT3(Z,         X,           C,           D,           V)             &kp DOT      &kp N1       &kp N2       &kp N3       &kp _COLON   &kp _DQUOT
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+//                      | FUNC             | NAV SPACE        | ENT              |     | =                | 0 SYM            | - _ NAV2         |
+                          &mo FUNC           &lt NAV SPACE      &kp RET                  &kp _EQ            &lt SYMBOL N0      &lt NAV2 _MINUS 
+//                      ----------------------------------------------------------     ----------------------------------------------------------
+            >;
+        };
+
+        navigation_layer {
+            label = "NAV";
+            bindings = <
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            | !          | @          | FIND       | CTRL + P   | GO-TO IDEA |     | HOME       | PAGE DOWN  | PAGE UP    | END        | ´ `        | - _        |
+     &none        &kp EXCL     &at_pnd      SHRT1(F,         P,           B)             &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp _ACUTE   &kp _MINUS
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            | CTRL+A mod | CTRL+R mod | CTRL+S mod | CTRL+T mod | CTRL + G   |     | LEFT       | DOWN       | UP         | RIGTH      | ; :        | + ?        |
+     &none        SHRT2(A,         R,           S,           T,           G)             &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &se_scln     &kp _PLUS
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            | UNDO       | CUT        | COPY       | CTRL + D   | PASTE      |     | <<         | vol-       | vol+       | >>         | :          | "          |
+     &none        SHRT3(Z,         X,           C,           D,           V)             &kp C_PREV   &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT   &kp _COLON   &kp _DQUOT
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+//                      |                  |                  |                  |     | =                | _                | - _              |
+                          &none              &none              &none                    &kp _EQ            &kp _UNDER         &kp _MINUS 
+//                      ----------------------------------------------------------     ----------------------------------------------------------
+            >;
+        };
+
+        navigation_2_layer {
+            label = "NAV2";
+            bindings = <
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            |            |            |            |            |            |     | HOME       | PAGE DOWN  | PAGE UP    | END        | ´ `        | - _        |
+     &none        &none        &none        &none        &none        &none              &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp _ACUTE   &kp _MINUS
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            | LCTRL      | LALT       | LGUI       | LSHFT      |            |     | LEFT       | DOWN       | UP         | RIGTH      | ; :        | + ?        |
+     &none        &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT   &none              &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &se_scln     &kp _PLUS
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            |            |            |            |            |            |     | <<         | vol-       | vol+       | >>         | :          | ' "        |
+     &none        &none        &none        &none        &none        &none              &kp C_PREV   &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT   &kp _COLON   &kp _DQUOT
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+//                      | CAPS LOCK        | TOGGLE MOUSE     | TOGGLE NUMBER    |     |                  |                  |                  |
+                          &kp CAPS           &tog MOUSE         &tog NUMBER              &none              &none              &none 
+//                      ----------------------------------------------------------     ----------------------------------------------------------
+            >;
+        };
+
+        function_layer {
+            label = "FUNC";
+            bindings = <
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | BTCLR      | BT1        | BT2        | BT3        | BT4        | BT5        |     | F12        | F7         | F8         | F9         |            | reset      |
+    &bt BT_CLR   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4        &kp F12      &kp F7       &kp F8       &kp F9       &none        &sys_reset
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            | LCTRL      | LALT       | LGUI       | LSHFT      |            |     | F11        | F4         | F5         | F6         |            |            |
+     &none        &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT   &none              &kp F11      &kp F4       &kp F5       &kp F6       &none        &none 
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            |            |            |            | CAPS       |            |     | F10        | F1         | F2         | F3         |            |            |
+    &none        &none        &none        &none        &kp CAPS     &none              &kp F10      &kp F1       &kp F2       &kp F3       &none        &none 
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+//                      |                  |                  |                  |     | DEL              | BSPC             | CAPS             |
+                        &none              &none              &none                    &kp DEL            &kp BSPC           &kp CAPS
+//                      ----------------------------------------------------------     ----------------------------------------------------------
+            >;
+        };
+
+        symbol_layer {
+            label = "SYMBOL";
+            bindings = <
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | ` ~        | !          | @ £        | [ {        | ] }        | %          |     |            |            |            |            |            |            |
+     &btik_tld    &kp EXCL     &at_pnd      &se_lbrc     &se_rbrc     &kp PRCNT          &none        &none        &none        &none        &none        &none
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | § °        | &          | $ €        | (          | )          | #          |     |            | RSHFT      | RGUI       | RALT       | RCTRL       | RCTRL      |
+     &par_hlf     &kp _AMPER   &dlr_eur     &kp _LPAR    &kp _RPAR    &kp HASH           &none        &kp RSHIFT   &kp RGUI     &kp RALT     &kp RCTRL     &kp RCTRL
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | ¥ µ        | "|" \      | ^          | <          | >          | *          |     |            |            |            |            |            |            |
+     &cur_mcr     &se_pipe     &kp _TOP     &kp _LT      &kp _GT      &kp _ASTRX         &none        &none        &none        &none        &none        &none
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+//                      | SPC              | SPC              | ENT              |     |                  |                  |                  |  
+                          &kp SPACE          &kp SPACE          &kp RET                  &none              &none              &none
+//                      ----------------------------------------------------------     ----------------------------------------------------------  
+            >;
+        };
+
+        mouse_layer {
+            label = "MOUSE";
+            bindings = <
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// | TAB        |            | SCROLL LEFT| MOUSE UP   |SCROLL RIGHT|            |     |            |            |            |            |            |            |
+     &kp TAB      &none        &mwh _MS_L   &mmv _MM_U   &mwh _MS_R   &none              &none        &none        &none        &none        &none        &none
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |TOGGLE MOUSE|            | MOUSE LEFT | MOUSE DOWN | MOUSE RIGHT|            |     | LEFT  mod  | DOWN mod   | UP mod     | RIGHT mod  | HOME mod   | END mod    |
+     &tog MOUSE   &none        &mmv _MM_L   &mmv _MM_D   &mmv _MM_R   &none              HRMR2(LEFT,      DOWN,        UP,          RIGHT,       HOME,        END)  
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+// |            |            |            | SCROLL DOWN| SCROLL UP  |            |     |            | LEFT CLICK | RIGHT CLICK|            |            |            |
+     &none        &none        &none        &mwh _MS_D   &mwh _MS_U   &none              &none        &mkp LCLK    &mkp RCLK    &none        &none        &none
+// -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
+//                      | SPC              | LEFT CLICK       | RIGHT CLICK      |     |                  |                  |                  |
+                          &kp SPACE          &mkp LCLK          &mkp RCLK                &none              &none              &none
+//                      ----------------------------------------------------------     ----------------------------------------------------------
+            >;
+        };
+
+    };
 };
