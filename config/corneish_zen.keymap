@@ -258,7 +258,7 @@
             bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // |            | !          | @          | F          | CTRL + P   | GO-TO IDEA |     | HOME       | PAGE DOWN  | PAGE UP    | END        | ´ `        | - _        |
-     &none        &kp EXCL    SHRT1(at_pnd, F,           P,           B)                 &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp _ACUTE   &kp _MINUS
+     &none        &kp EXCL    SHRT1(_AT,    F,           P,           B)                 &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp _ACUTE   &kp _MINUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // |            | CTRL+A mod | CTRL+R mod | CTRL+S mod | CTRL+T mod | CTRL + G   |     | LEFT       | DOWN       | UP         | RIGTH      | ; :        | + ?        |
      &none        SHRT2(A,         R,           S,           T,           G)             &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &se_scln     &kp _PLUS
