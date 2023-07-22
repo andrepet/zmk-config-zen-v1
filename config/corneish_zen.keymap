@@ -21,7 +21,7 @@
 #define HRMR3(k1,k2,k3,k4) &r_ht RC(RS(RA(RGUI))) k1   &r_ht RS(RGUI) k2   &r_ht RG(RALT) k3   &r_ht RA(RCTRL) k4
 
 // Short commands macro
-#define SHRT1(k1,k2,k3) &kp LG(k1)   &kp LG(k2)   &kp LA(LG(k3))
+#define SHRT1(k1,k2,k3,k4) &l_ht LC(LGUI) k1   &l_ht LS(LALT) k2  &kp LG(k3)   &kp LA(LG(k4))
 #define SHRT2(k1,k2,k3,k4,k5) &l_ht LCTRL LG(k1)   &l_ht LALT LG(k2)   &l_ht LGUI LG(k3)   &l_ht LSHIFT LG(k4)   &kp LG(k5)
 #define SHRT3(k1,k2,k3,k4,k5) &kp LG(k1)   &kp LG(k2)   &kp LG(k3)   &kp LG(k4)   &kp LG(k5)
 
@@ -239,10 +239,10 @@
             bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // | TAB        | 1          | 2          | 3          | 4          | 5          |     | 6          | 7          | 8          | 9          | 0          | - _        |
-     &kp TAB      &kp N1       &kp N2       &kp N3       &kp N4       &kp N5             &kp N6       &kp N7       &kp N8       &kp N9       &kp N0       &kp _MINUS
+     &kp TAB      &kp N1       HRML1(N2,       N3)       &kp N4       &kp N5             &kp N6       &kp N7       &kp N8       &kp N9       &kp N0       &kp _MINUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // | TOGGLE     | LCTRL      | LALT       | LGUI       | LSHFT      |            |     | ,          | 4          | 5          | 6          | ; :        | + ?        |
-     &tog NUMBER  &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT   &none              &kp COMMA    &kp N4       &kp N5       &kp N6       &se_scln     &kp _PLUS
+     &tog NUMBER  &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT &kp LC(LS(LALT))     &kp COMMA    &kp N4       &kp N5       &kp N6       &se_scln     &kp _PLUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // |            | UNDO       | CUT        | COPY       | CTRL + D   | PASTE      |     | .          | 1          | 2          | 3          | :          | "          |
      &none        SHRT3(Z,         X,           C,           D,           V)             &kp DOT      &kp N1       &kp N2       &kp N3       &kp _COLON   &kp _DQUOT
@@ -257,8 +257,8 @@
             label = "NAV";
             bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// |            | !          | @          | FIND       | CTRL + P   | GO-TO IDEA |     | HOME       | PAGE DOWN  | PAGE UP    | END        | ´ `        | - _        |
-     &none        &kp EXCL     &at_pnd      SHRT1(F,         P,           B)             &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp _ACUTE   &kp _MINUS
+// |            | !          | @          | F          | CTRL + P   | GO-TO IDEA |     | HOME       | PAGE DOWN  | PAGE UP    | END        | ´ `        | - _        |
+     &none        &kp EXCL    SHRT1(at_pnd, F,           P,           B)                 &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp _ACUTE   &kp _MINUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // |            | CTRL+A mod | CTRL+R mod | CTRL+S mod | CTRL+T mod | CTRL + G   |     | LEFT       | DOWN       | UP         | RIGTH      | ; :        | + ?        |
      &none        SHRT2(A,         R,           S,           T,           G)             &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &se_scln     &kp _PLUS
@@ -277,13 +277,13 @@
             bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // |            |            |            |            |            |            |     | HOME       | PAGE DOWN  | PAGE UP    | END        | ´ `        | - _        |
-     &none        &none        &none        &none        &none        &none              &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp _ACUTE   &kp _MINUS
+     &none        &none      &kp LC(LGUI)  &kp LS(LALT)  &none        &none              &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp _ACUTE   &kp _MINUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // |            | LCTRL      | LALT       | LGUI       | LSHFT      |            |     | LEFT       | DOWN       | UP         | RIGTH      | ; :        | + ?        |
-     &none        &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT   &none              &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &se_scln     &kp _PLUS
+     &none        &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT &kp LC(LS(LALT))     &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &se_scln     &kp _PLUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // |            |            |            |            |            |            |     | <<         | vol-       | vol+       | >>         | :          | ' "        |
-     &none        &none        &none        &none        &none        &none              &kp C_PREV   &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT   &kp _COLON   &kp _DQUOT
+     &none      &none  &kp LA(LCTRL)  &kp LG(LALT)  &kp LS(LGUI)  &kp LC(LS(LA(LGUI)))  &none        &kp C_PREV   &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT   &kp _COLON   &kp _DQUOT
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 //                      | CAPS LOCK        | TOGGLE MOUSE     | TOGGLE NUMBER    |     |                  |                  |                  |
                           &kp CAPS           &tog MOUSE         &tog NUMBER              &none              &none              &none 
@@ -315,13 +315,13 @@
             bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // | ` ~        | !          | @ £        | [ {        | ] }        | %          |     |            |            |            |            |            |            |
-     &btik_tld    &kp EXCL     &at_pnd      &se_lbrc     &se_rbrc     &kp PRCNT          &none        &none        &none        &none        &none        &none
+     &btik_tld    &kp EXCL     &at_pnd      &se_lbrc     &se_rbrc     &kp PRCNT          &none        &none       &kp RS(RALT) &kp RC(RGUI)  &none        &none
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // | § °        | &          | $ €        | (          | )          | #          |     |            | RSHFT      | RGUI       | RALT       | RCTRL       | RCTRL      |
-     &par_hlf     &kp _AMPER   &dlr_eur     &kp _LPAR    &kp _RPAR    &kp HASH           &none        &kp RSHIFT   &kp RGUI     &kp RALT     &kp RCTRL     &kp RCTRL
+     &par_hlf     &kp _AMPER   &dlr_eur     &kp _LPAR    &kp _RPAR    &kp HASH      &kp RC(RS(RALT))  &kp RSHIFT   &kp RGUI     &kp RALT     &kp RCTRL     &kp RCTRL
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // | ¥ µ        | "|" \      | ^          | <          | >          | *          |     |            |            |            |            |            |            |
-     &cur_mcr     &se_pipe     &kp _TOP     &kp _LT      &kp _GT      &kp _ASTRX         &none        &none        &none        &none        &none        &none
+     &cur_mcr     &se_pipe     &kp _TOP     &kp _LT      &kp _GT      &kp _ASTRX  &kp RC(RS(RA(RGUI))) &kp RS(RGUI) &kp RG(RALT) &kp RA(RCTRL) &none        &none
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 //                      | SPC              | SPC              | ENT              |     |                  |                  |                  |  
                           &kp SPACE          &kp SPACE          &kp RET                  &none              &none              &none
