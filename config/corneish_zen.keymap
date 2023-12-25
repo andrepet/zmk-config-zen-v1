@@ -283,7 +283,7 @@
      &none        &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT &kp LC(LS(LALT))     &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &se_scln     &kp _PLUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // |            |            |            |            |            |            |     | <<         | vol-       | vol+       | >>         | :          | ' "        |
-     &none      &none  &kp LA(LCTRL)  &kp LG(LALT)  &kp LS(LGUI)  &kp LC(LS(LA(LGUI)))   &kp C_PREV   &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT   &kp _COLON   &kp _DQUOT
+     &none      &none  &kp LA(LCTRL)  &kp LG(LALT)  &kp LS(LGUI)  &kp LC(LS(LA(LGUI)))  &kp C_PREV   &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT   &kp _COLON   &kp _DQUOT
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 //                      | CAPS LOCK        | TOGGLE MOUSE     | TOGGLE NUMBER    |     |                  |                  |                  |
                           &kp CAPS           &tog MOUSE         &tog NUMBER              &none              &none              &none 
