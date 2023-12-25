@@ -1,11 +1,15 @@
 manifest:
   remotes:
     - name: zmkfirmware
-      url-base: https://github.com/ftc/
+      url-base: https://github.com/zmkfirmware
+    - name: urob
+      url-base: https://github.com/urob
+    - name: k3d3
+      url-base: https://github.com/k3d3
   projects:
     - name: zmk
-      remote: zmkfirmware
-      revision: mouse-ftc  # custom branch name
+      remote: k3d3
+      revision: main
       import: app/west.yml
   self:
     path: config
