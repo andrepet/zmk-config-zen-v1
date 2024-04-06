@@ -314,11 +314,11 @@
             label = "SYMBOL";
             bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// | ` ~        | !          | @ £        | [ {        | ] }        | %          |     |            |            |            |            |            |            |
-     &btik_tld    &kp EXCL     &at_pnd      &se_lbrc     &se_rbrc     &kp PRCNT          &none        &none       &kp RS(RALT) &kp RC(RGUI)  &none        &none
+// | ` ~        | !          | @ £        | [ {        | ] }        | #          |     |            |            |            |            |            |            |
+     &btik_tld    &kp EXCL     &at_pnd      &se_lbrc     &se_rbrc     &kp HASH           &none        &none       &kp RS(RALT) &kp RC(RGUI)  &none        &none
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// | § °        | &          | $ €        | (          | )          | #          |     |            | RSHFT      | RGUI       | RALT       | RCTRL       | RCTRL      |
-     &par_hlf     &kp _AMPER   &dlr_eur     &kp _LPAR    &kp _RPAR    &kp HASH      &kp RC(RS(RALT))  &kp RSHIFT   &kp RGUI     &kp RALT     &kp RCTRL     &kp RCTRL
+// | § °        | &          | $ €        | (          | )          | %          |     |            | RSHFT      | RGUI       | RALT       | RCTRL       | RCTRL      |
+     &par_hlf     &kp _AMPER   &dlr_eur     &kp _LPAR    &kp _RPAR    &kp PRCNT       &kp RC(RS(RALT))  &kp RSHIFT   &kp RGUI     &kp RALT     &kp RCTRL     &kp RCTRL
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // | ¥ µ        | "|" \      | ^          | <          | >          | *          |     |            |            |            |            |            |            |
      &cur_mcr     &se_pipe     &kp _TOP     &kp _LT      &kp _GT      &kp _ASTRX  &kp RC(RS(RA(RGUI))) &kp RS(RGUI) &kp RG(RALT) &kp RA(RCTRL) &none        &none
