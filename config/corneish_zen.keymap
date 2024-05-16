@@ -241,11 +241,11 @@
 // | TAB        | 1          | 2          | 3          | 4          | 5          |     | 6          | 7          | 8          | 9          | 0          | - _        |
      &kp TAB      &kp N1       HRML1(N2,       N3)       &kp N4       &kp N5             &kp N6       &kp N7       &kp N8       &kp N9       &kp N0       &kp _MINUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// | TOGGLE     | LCTRL      | LALT       | LGUI       | LSHFT      |            |     | ,          | 4          | 5          | 6          | ; :        | + ?        |
+// | TOGGLE     | LCTRL      | LALT       | LGUI       | LSHFT      | MEH        |     | ,          | 4          | 5          | 6          | ; :        | + ?        |
      &tog NUMBER  &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT &kp LC(LS(LALT))     &kp COMMA    &kp N4       &kp N5       &kp N6       &se_scln     &kp _PLUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// |            | UNDO       | CUT        | COPY       | CTRL + D   | PASTE      |     | .          | 1          | 2          | 3          | :          | "          |
-     &none        SHRT3(Z,         X,           C,           D,           V)             &kp DOT      &kp N1       &kp N2       &kp N3       &kp _COLON   &kp _DQUOT
+// |            | UNDO       | CUT        | COPY       | CTRL + D   | HYPER      |     | .          | 1          | 2          | 3          | :          | "          |
+     &none      &none  &kp LA(LCTRL)  &kp LG(LALT)  &kp LS(LGUI)  &kp LC(LS(LA(LGUI)))   &kp DOT      &kp N1       &kp N2       &kp N3       &kp _COLON   &kp _DQUOT
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 //                      | FUNC             | NAV SPACE        | ENT              |     | =                | 0 SYM            | - _ NAV2         |
                           &mo FUNC           &lt NAV SPACE      &kp RET                  &kp _EQ            &lt SYMBOL N0      &lt NAV2 _MINUS 
@@ -276,13 +276,13 @@
             label = "NAV2";
             bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// |            |            |            |            |            |            |     | HOME       | PAGE DOWN  | PAGE UP    | END        | ´ `        | - _        |
+// |            |            | CTRL + GUI | SHFT + ALT |            |            |     | HOME       | PAGE DOWN  | PAGE UP    | END        | ´ `        | - _        |
      &none        &none      &kp LC(LGUI)  &kp LS(LALT)  &none        &none              &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp _ACUTE   &kp _MINUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// |            | LCTRL      | LALT       | LGUI       | LSHFT      |            |     | LEFT       | DOWN       | UP         | RIGTH      | ; :        | + ?        |
+// |            | LCTRL      | LALT       | LGUI       | LSHFT      | MEH        |     | LEFT       | DOWN       | UP         | RIGTH      | ; :        | + ?        |
      &none        &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT &kp LC(LS(LALT))     &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &se_scln     &kp _PLUS
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// |            |            |            |            |            |            |     | <<         | vol-       | vol+       | >>         | :          | ' ""       |
+// |            |            | CTRL + ALT | GUI + ALT  | SHFT + GUI | HYPER      |     | <<         | vol-       | vol+       | >>         | :          | ' ""       |
      &none      &none  &kp LA(LCTRL)  &kp LG(LALT)  &kp LS(LGUI)  &kp LC(LS(LA(LGUI)))   &kp C_PREV   &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT   &kp _COLON   &kp _DQUOT
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 //                      | CAPS LOCK        | TOGGLE MOUSE     | TOGGLE NUMBER    |     |                  |                  |                  |
@@ -296,13 +296,13 @@
             bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // | BTCLR      | BT1        | BT2        | BT3        | BT4        | BT5        |     | F12        | F7         | F8         | F9         |            | reset      |
-    &bt BT_CLR   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4        &kp F12      &kp F7       &kp F8       &kp F9       &none        &sys_reset
+     &bt BT_CLR  &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4        &kp F12      &kp F7       &kp F8       &kp F9       &none        &sys_reset
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 // |            | LCTRL      | LALT       | LGUI       | LSHFT      |            |     | F11        | F4         | F5         | F6         |            |            |
      &none        &kp LCTRL    &kp LALT     &kp LGUI     &kp LSHIFT   &none              &kp F11      &kp F4       &kp F5       &kp F6       &none        &none 
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// |            |            |            |            | CAPS       |            |     | F10        | F1         | F2         | F3         |            |            |
-    &none        &none        &none        &none        &kp CAPS     &none              &kp F10      &kp F1       &kp F2       &kp F3       &none        &none 
+// |            |            |            |            |            |            |     | F10        | F1         | F2         | F3         |            |            |
+     &none        &none        &none        &none        &none        &none              &kp F10      &kp F1       &kp F2       &kp F3       &none        &none 
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 //                      |                  |                  |                  |     | DEL              | BSPC             | CAPS             |
                         &none              &none              &none                    &kp DEL            &kp BSPC           &kp CAPS
@@ -314,13 +314,13 @@
             label = "SYMBOL";
             bindings = <
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// | ` ~        | !          | @ £        | [ {        | ] }        | #          |     |            |            |            |            |            |            |
+// | ` ~        | !          | @ £        | [ {        | ] }        | #          |     |            |            | SHFT + ALT | CTRL + GUI |            |            |
      &btik_tld    &kp EXCL     &at_pnd      &se_lbrc     &se_rbrc     &kp HASH           &none        &none       &kp RS(RALT) &kp RC(RGUI)  &none        &none
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// | § °        | &          | $ €        | (          | )          | %          |     |            | RSHFT      | RGUI       | RALT       | RCTRL       | RCTRL      |
+// | § °        | &          | $ €        | (          | )          | %          |     | MEH        | RSHFT      | RGUI       | RALT       | RCTRL       | RCTRL      |
      &par_hlf     &kp _AMPER   &dlr_eur     &kp _LPAR    &kp _RPAR    &kp PRCNT       &kp RC(RS(RALT))  &kp RSHIFT   &kp RGUI     &kp RALT     &kp RCTRL     &kp RCTRL
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
-// | ¥ µ        | "|" \      | ^          | <          | >          | *          |     |            |            |            |            |            |            |
+// | ¥ µ        | "|" \      | ^          | <          | >          | *          |     | HYPER      | SHFT + GUI | GUI + ALT  | CTRL + ALT |            |            |
      &cur_mcr     &se_pipe     &kp _TOP     &kp _LT      &kp _GT      &kp _ASTRX  &kp RC(RS(RA(RGUI))) &kp RS(RGUI) &kp RG(RALT) &kp RA(RCTRL) &none        &none
 // -------------------------------------------------------------------------------     -------------------------------------------------------------------------------
 //                      | SPC              | SPC              | ENT              |     |                  |                  |                  |  
